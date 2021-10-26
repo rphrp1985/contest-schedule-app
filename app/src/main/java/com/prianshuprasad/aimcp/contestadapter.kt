@@ -1,12 +1,10 @@
 package com.prianshuprasad.aimcp
 
-import android.graphics.Color.green
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class contestAdapter(private val listener: ScheduleviewActivity) :
@@ -89,8 +87,8 @@ class contestAdapter(private val listener: ScheduleviewActivity) :
 
         if(curritem.site=="HackerRank")
         {
-            viewHolder.siteImg.setImageResource(R.drawable.hackerranklogo)
-            viewHolder.siteImg.setBackgroundColor(R.drawable.green)
+            viewHolder.siteImg.setImageResource(R.drawable.hrl)
+//            viewHolder.siteImg.setBackgroundColor(R.drawable.green)
         }else
         if(curritem.site=="CodeForces")
         {

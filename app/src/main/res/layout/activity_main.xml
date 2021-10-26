@@ -87,6 +87,22 @@
 
       />
 
+  <ImageView
+      android:id="@+id/myAd"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+         android:onClick="onmyadclicked"
+/>
+<ImageView
+    android:id="@+id/closebutton"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:src="@drawable/closeimage"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    android:onClick="closebuttonclicked"
+/>
+
 <!--  <ImageView-->
 <!--      android:layout_width="20dp"-->
 <!--      android:layout_height="20dp"-->

@@ -1,20 +1,125 @@
 package com.prianshuprasad.aimcp
 
 import android.app.Activity
+import android.app.DownloadManager
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.browser.customtabs.CustomTabsIntent
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.spinner_item.*
 
 class MainActivity : AppCompatActivity() {
+
+    private var mInterstitialAd: InterstitialAd? = null
+    private final var TAG = "Adactivity"
+    private var islink:String=""
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+         myAd.setVisibility(View.GONE)
+        closebutton.setVisibility(View.GONE)
+        val myadurl="https://raw.githubusercontent.com/rphrp1985/contest-schedule-app-helper-repo/main/opttext"
+      val myadimageurl="https://raw.githubusercontent.com/rphrp1985/contest-schedule-app-helper-repo/main/Adimage.png"
+       val imgv= findViewById(R.id.myAd) as ImageView
+
+
+        val strings= StringRequest(
+            Request.Method.GET,myadurl,
+            {
+                    response ->
+                val x:String= response.toString()
+
+
+
+//                Toast.makeText(this,"$x ${x.subSequence(2,3) as String}  $temp ",Toast.LENGTH_LONG).show()
+                if(x.subSequence(0,1) as String =="Y")
+                {
+
+                    allbutton.setVisibility(View.GONE)
+                    text.setVisibility(View.GONE)
+                    sitelist.setVisibility(View.GONE)
+                    myAd.setVisibility(View.VISIBLE)
+                    closebutton.setVisibility(View.VISIBLE)
+              Glide.with(this).load(myadimageurl).into(imgv)
+
+                  if(x.subSequence(2,3)as String=="Y"){
+
+                      islink=  x.subSequence(4,x.length) as String
+                  }
+
+
+
+
+
+                }
+
+                // Display the first 500 characters of the response string.
+
+            },
+            Response.ErrorListener {
+//                Toast.makeText(this,"youfr ad error",Toast.LENGTH_LONG).show()
+
+            })
+
+        MySingleton.getInstance(this).addToRequestQueue(strings)
+
+
+
+
+
+        var adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,"ca-app-pub-7730150285838464/4714797795", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError?.message)
+                mInterstitialAd = null
+            }
+
+           override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d(TAG, "Ad was loaded.")
+                mInterstitialAd = interstitialAd
+            }
+        })
+
+        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                Log.d(TAG, "Ad was dismissed.")
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                Log.d(TAG, "Ad failed to show.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                Log.d(TAG, "Ad showed fullscreen content.")
+                mInterstitialAd = null
+            }
+        }
+
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.show(this)
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.")
+        }
+
 
         Toast.makeText(this,"Developed by Prianshu Prasad",Toast.LENGTH_LONG).show()
 
@@ -152,5 +257,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    fun closebuttonclicked(view: View){
+        allbutton.setVisibility(View.VISIBLE)
+        text.setVisibility(View.VISIBLE)
+        sitelist.setVisibility(View.VISIBLE)
+        closebutton.setVisibility(View.GONE)
+        myAd.setVisibility(View.GONE)
+    }
+
+
+    fun onmyadclicked(view: View){
+//        islink="https://www.google.co.in/"
+        val coustomtabs= CustomTabsIntent.Builder()
+        val coustomtabintent= coustomtabs.build()
+        if(islink!=""){
+
+            coustomtabintent.launchUrl(this, Uri.parse(islink))
+        }
+
+    }
 
 }
