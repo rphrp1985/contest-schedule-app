@@ -181,7 +181,7 @@ todaybutton.setText("View Toady's Contest")
     }
 
     fun todaybuttonclicked(view: View){
-
+        recycleview.setVisibility(View.GONE)
         emptyimage.setVisibility(View.GONE)
         if(mtoday==0){
         mtoday=1
@@ -205,6 +205,7 @@ todaybutton.setText("View Toady's Contest")
 //       intent.putExtra("siteindex",siteidex)
 //       startActivity(intent)
         fetchcondata(url)
+        recycleview.setVisibility(View.GONE)
         retrybutton.setVisibility(View.GONE)
         emptyimage.setVisibility(View.GONE)
 
