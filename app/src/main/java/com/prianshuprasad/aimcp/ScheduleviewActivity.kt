@@ -28,6 +28,7 @@ class ScheduleviewActivity : AppCompatActivity() {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        loading.setVisibility(View.VISIBLE)
         setContentView(R.layout.scheduleview)
    retrybutton.setVisibility(View.GONE)
         url= intent.getStringExtra("url").toString()
@@ -60,6 +61,7 @@ todaybutton.setText("View Toady's Contest")
 
     fun fetchcondata( url:String)
     {
+        loading.setVisibility(View.VISIBLE)
         retrybutton.setVisibility(View.GONE)
         recycleview.setVisibility(View.VISIBLE)
 //        val url="https://saurav.tech/NewsAPI/everything/bbc-news.json"
@@ -134,6 +136,7 @@ todaybutton.setText("View Toady's Contest")
                     emptyimage.setImageResource(R.drawable.nocontestimage)
                 }
                 mAdapter.updatenews(contestArray)
+                loading.setVisibility(View.GONE)
 //                 return NewsArray
 
             },
@@ -144,7 +147,7 @@ todaybutton.setText("View Toady's Contest")
             {
 
             emptyimage.setImageResource(R.drawable.internetissueimage)
-
+                loading.setVisibility(View.GONE)
                 retrybutton.setVisibility(View.VISIBLE)
                 recycleview.setVisibility(View.GONE)
                 emptyimage.setVisibility(View.VISIBLE)

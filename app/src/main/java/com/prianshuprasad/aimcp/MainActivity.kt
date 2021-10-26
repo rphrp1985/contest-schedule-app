@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Toast.makeText(this,"Developed by Prianshu Prasad",Toast.LENGTH_LONG).show()
+
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         val spinner: Spinner = findViewById(R.id.sitelist)
