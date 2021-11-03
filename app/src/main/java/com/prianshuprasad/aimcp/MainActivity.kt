@@ -114,11 +114,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (mInterstitialAd != null) {
-            mInterstitialAd?.show(this)
-        } else {
-            Log.d("TAG", "The interstitial ad wasn't ready yet.")
-        }
 
 
         Toast.makeText(this,"Developed by Prianshu Prasad",Toast.LENGTH_LONG).show()
@@ -209,9 +204,18 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
               }
 
 
+
+                if (mInterstitialAd != null) {
+                    mInterstitialAd?.show(this@MainActivity)
+                } else {
+
+//            Toast.makeText(this,"not ready",Toast.LENGTH_LONG).show()
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.")
+                }
 
 
 
@@ -249,11 +253,22 @@ class MainActivity : AppCompatActivity() {
 
 
     fun buttonclicked(view: View){
+
+
+
+
         val intent =Intent(this,ScheduleviewActivity::class.java)
         intent.putExtra("url","https://kontests.net/api/v1/all")
         var temp=0
         intent.putExtra("siteindex","$temp")
         startActivity(intent)
+        if (mInterstitialAd != null) {
+            mInterstitialAd?.show(this)
+        } else {
+
+//            Toast.makeText(this,"not ready",Toast.LENGTH_LONG).show()
+            Log.d("TAG", "The interstitial ad wasn't ready yet.")
+        }
 
     }
 
