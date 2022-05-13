@@ -124,9 +124,7 @@ class MainActivity : AppCompatActivity() {
 
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter.createFromResource(
-            this,
-            R.array.sitearray,
-            R.layout.spinner_item
+            this, R.array.sitearray, R.layout.spinner_item
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(R.layout.spinner_item)

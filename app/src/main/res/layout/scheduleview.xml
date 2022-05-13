@@ -16,7 +16,8 @@
     <Button
         android:id="@+id/todaybutton"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".1"
         android:onClick="todaybuttonclicked"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -24,14 +25,15 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.89"
         app:layout_constraintTop_toBottomOf="@id/todaybutton"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp
-" />
+        tools:layout_editor_absoluteY="1dp"
+        />
 
 
     <ImageView
